@@ -5,6 +5,9 @@ import './styles/home.sass';
 import './styles/loading.sass';
 import './styles/weather.sass';
 
+import cloudImg from './images/Cloud.svg';
+
+
 export default function App() {
   const [city, setCity] = useState('');
   const [location, setLocation] = useState(false);
@@ -25,20 +28,6 @@ export default function App() {
     setWeather(res.data);
     console.log(res.data);
   }
-
-  /* let getWeatherByName = async (city) => {
-    let res = await axios.get("https://api.openweathermap.org/data/2.5/weather", {
-      params: {
-        q: city,
-        appid: process.env.REACT_APP_OPEN_WHEATER_KEY,
-        lang: 'pt',
-        units: 'metric'
-      }
-    });
-    setWeather(res.data);
-    console.log(res.data);
-    setLocation(true);
-  } */
 
   async function handleGetWeatherByName(e){
     e.preventDefault();
@@ -67,7 +56,7 @@ export default function App() {
   if(location === false) {
     return(
       <>
-      <div className="title">
+      <div className="home-title">
           <h1> How's the Weather? </h1>
       </div>
       <div className="home-content">
@@ -107,7 +96,7 @@ export default function App() {
         <div className="weather-content">
           <div className="card">
             <h3> Descrição: </h3>
-            <img src ="" alt="Descrição do clima"/>
+            <img src={cloudImg} alt="Cloud" /> 
             <p> {JSON.stringify(weather['weather'][0]['description'])} </p>
           </div>
           <div className="card">
