@@ -7,9 +7,10 @@ import './styles/home.sass';
 import './styles/loading.sass';
 import './styles/weather.sass';
 
-import cloudImg from './images/Cloud.svg';
+/* import cloudImg from './images/Cloud.svg'; */
 import fogImg from './images/Fog.svg';
 import sunImg from './images/Sun.svg';
+import cloudsunImg from './images/Cloud_Sun.svg';
 
 
 export default function App() {
@@ -65,7 +66,7 @@ export default function App() {
         <aside>
           <div className="aside-content">
             <h1> Ver clima em sua localização atual </h1>
-            <button onClick={handleLocationTrue}> Ative sua Localização </button>
+            <button onClick={handleLocationTrue}> Ative sua localização </button>
           </div>
         </aside>
         <div className="divider">
@@ -73,9 +74,9 @@ export default function App() {
         </div>
         <main>
           <div className="main-content">
-            <h1> Digite a cidade: </h1>
+            <h1> Ver o clima na cidade que quiser </h1>
             <form onSubmit={handleGetWeatherByName}>
-              <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+              <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Cidade (ex: Jundiaí, São Paulo, Rio de Janeiro)" />
               <button type="submit"> Ver </button>
             </form>
           </div>
@@ -94,17 +95,17 @@ export default function App() {
     function handleWeatherTheme() {
       if(weather['weather'][0]['description'].includes("nevoeiro")){
         return fogImg;
-      } else if(weather['weather'][0]['description'].includes("nu")){
-        return cloudImg;
-      } else if(weather['weather'][0]['description'].includes("limpo")){
+      } else if(weather['weather'][0]['description'].includes("limpo") || weather['weather'][0]['description'] === "céu pouco nublado"){
         return sunImg;
+      } else if(weather['weather'][0]['description'].includes("nu")){
+        return cloudsunImg;
       }
     }
 
-    /* function handleBack() {
+    function handleBack() {
       setWeather(false);
       setLocation(false);
-    } */
+    }
 
     return (
       <div className="weather">
@@ -113,11 +114,17 @@ export default function App() {
             <h1> {weather['name']}, {weather['sys']['country']} </h1>
             <span> {weather['weather'][0]['description']} </span>
           </div>
+            <img src={handleWeatherTheme()} alt="Weather" />
           <div className="temp-content">
-            <img src={handleWeatherTheme()} alt="Weather" /> 
             <h2> {Math.round(JSON.stringify(weather['main']['temp']))}° </h2>
             <span>Sensação: {Math.round(JSON.stringify(weather['main']['feels_like']))}° </span>
           </div>
+          <div>
+            <span> Clique no botão da lateral direita para voltar </span>
+          </div>
+        </section>
+        <section className="back-button">
+          <button onClick={handleBack}> {'<'} </button>
         </section>
         <section className="other-info">
           <div className="weather-content">

@@ -13,22 +13,20 @@
         flex-direction: column
         justify-content: center
         align-items: center
-        gap: 58px
-
+        gap: 48px
         .city-content
             display: flex
             flex-direction: column
             align-items: flex-end
             h1
                 display: flex
-                font-size: 64px
+                font-size: 44px
             span
                 font-size: 14px
                 display: flex
                 text-align: right
                 color: #EEEEEE
                 margin-top: -15px
-
         .temp-content
             display: flex
             flex-direction: column
@@ -41,13 +39,32 @@
                 display: flex
                 font-size: 14px
                 align-items: center
+                margin-top: -16px
                 color: #EEEEEE
+        span
+            display: flex
+            font-size: 10px
+            color: #EEEEEE
+            margin-top: 32px
+
+    .back-button
+        display: flex
+        align-items: center
+        button
+            background-color: #5B58F3
+            border: none
+            color: #EEEEEE
+            border-radius: 0 50% 50% 0
+            margin-left: -12px
+            padding: 6px 14px
+            font-size: 36px
+            &:hover
+                cursor: pointer
 
     .other-info
         display: flex
         flex: 6
         overflow: hidden
-
         .weather-content
             width: 100%
             display: grid
