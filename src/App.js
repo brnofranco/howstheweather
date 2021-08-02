@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+import { Card } from './components/Card';
+
 import './styles/home.sass';
 import './styles/loading.sass';
 import './styles/weather.sass';
 
 import cloudImg from './images/Cloud.svg';
+import fogImg from './images/Fog.svg';
+import sunImg from './images/Sun.svg';
 
 
 export default function App() {
   const [city, setCity] = useState('');
   const [location, setLocation] = useState(false);
   const [weather, setWeather] = useState(false);
-
-  const hoje = new Date();
 
   let getWeather = async (lat, lon) => {
     let res = await axios.get("https://api.openweathermap.org/data/2.5/weather", {
@@ -88,39 +90,44 @@ export default function App() {
       </div>
     );
   } else {
+
+    function handleWeatherTheme() {
+      if(weather['weather'][0]['description'].includes("nevoeiro")){
+        return fogImg;
+      } else if(weather['weather'][0]['description'].includes("nu")){
+        return cloudImg;
+      } else if(weather['weather'][0]['description'].includes("limpo")){
+        return sunImg;
+      }
+    }
+
+    /* function handleBack() {
+      setWeather(false);
+      setLocation(false);
+    } */
+
     return (
-      <>
-        <div className="title"> 
-          <h1> Clima atual de {JSON.stringify(weather['name'])} às {hoje.getHours()} horas </h1>
-        </div>
-        <div className="weather-content">
-          <div className="card">
-            <h3> Descrição: </h3>
-            <img src={cloudImg} alt="Cloud" /> 
-            <p> {JSON.stringify(weather['weather'][0]['description'])} </p>
+      <div className="weather">
+        <section className="main-info">
+          <div className="city-content">
+            <h1> {weather['name']}, {weather['sys']['country']} </h1>
+            <span> {weather['weather'][0]['description']} </span>
           </div>
-          <div className="card">
-            <h3> Temperatura atual: </h3>
-            <p> {Math.round(JSON.stringify(weather['main']['temp']))}° </p>
+          <div className="temp-content">
+            <img src={handleWeatherTheme()} alt="Weather" /> 
+            <h2> {Math.round(JSON.stringify(weather['main']['temp']))}° </h2>
+            <span>Sensação: {Math.round(JSON.stringify(weather['main']['feels_like']))}° </span>
           </div>
-          <div className="card">
-            <h3> Sensação Térmica: </h3>
-            <p> {Math.round(JSON.stringify(weather['main']['feels_like']))}° </p>
+        </section>
+        <section className="other-info">
+          <div className="weather-content">
+            <Card text="Temperatura máxima do dia" value={Math.round(JSON.stringify(weather['main']['temp_max']))} type="°" />
+            <Card text="Temperatura mínima do dia" value={Math.round(JSON.stringify(weather['main']['temp_min']))} type="°" />
+            <Card text="Umidade" value={JSON.stringify(weather['main']['humidity'])} type="%" />
+            <Card text="Pressão" value={JSON.stringify(weather['main']['pressure'])} type=" hPa" />
           </div>
-          <div className="card">
-            <h3> Temperatura máxima: </h3>
-            <p> {Math.round(JSON.stringify(weather['main']['temp_max']))}° </p>
-          </div>
-          <div className="card">
-            <h3> Temperatura mínima: </h3>
-            <p> {Math.round(JSON.stringify(weather['main']['temp_min']))}° </p>
-          </div>
-          <div className="card">
-            <h3> Umidade: </h3>
-            <p> {JSON.stringify(weather['main']['humidity'])}% </p>
-          </div>
-        </div>
-      </>
+        </section>
+      </div>
     );
   }
 }
