@@ -45,7 +45,7 @@ export default function Weather() {
           <span>Sensação: {Math.round(JSON.stringify(weather['main']['feels_like']))}° </span>
         </div>
         <div>
-          <span> Clique no botão da lateral direito para voltar </span>
+          <span> Clique no botão lateral roxo para voltar </span>
         </div>
       </section>
       <section className="back-button">
