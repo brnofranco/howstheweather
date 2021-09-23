@@ -19,7 +19,7 @@ export default function Home() {
         params: {
             lat: lat,
             lon: lon,
-            appid: process.env.REACT_APP_OPEN_WHEATER_KEY,
+            appid: '99984743ed29c170f82340be961b4a4e',
             lang: 'pt',
             units: 'metric'
         }
