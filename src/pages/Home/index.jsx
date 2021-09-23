@@ -54,7 +54,8 @@ export default function Home() {
     useEffect(() => {
         if(weather){
             console.log(history, weather);
-            history.push(`/clima/${weather['name']}`);
+            const cityNameTag = weather['name'].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            history.push(`/clima/${cityNameTag}`);
         }
     }, [weather, history])
 
