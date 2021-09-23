@@ -67,24 +67,30 @@ export default function Home() {
                 <h1> How's the Weather? </h1>
             </div>
             <div className="home-content">
-                <aside>
-                <div className="aside-content">
-                    <h1> Ver clima em sua localização atual </h1>
-                    <button onClick={handleLocationTrue}> Ative sua localização </button>
-                </div>
-                </aside>
+                <section className="aside-container">
+                    <div className="aside-content">
+                        <h1> Ver clima em sua localização atual </h1>
+                        <button onClick={handleLocationTrue}> Ative sua localização </button>
+                    </div>
+                </section>
+
                 <div className="divider">
-                <div className="line"></div>
+                    <div className="line"></div>
                 </div>
-                <main>
-                <div className="main-content">
-                    <h1> Ver o clima na cidade que quiser </h1>
-                    <form onSubmit={handleGetWeatherByName}>
-                    <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Cidade (ex: Jundiaí, São Paulo, Rio de Janeiro)" />
-                    <button type="submit"> Ver </button>
-                    </form>
-                </div>
-                </main>
+
+                <section className="main-container">
+                    <div className="main-content">
+                        <h1> Ver o clima na cidade que quiser </h1>
+                        <form onSubmit={handleGetWeatherByName}>
+                            <input type="text" 
+                                value={city} 
+                                onChange={(e) => setCity(e.target.value)} 
+                                placeholder="Cidade (ex: Jundiaí, São Paulo etc.)" 
+                            />
+                            <button type="submit"> Ver </button>
+                        </form>
+                    </div>
+                </section>
             </div>
             </>
         );
