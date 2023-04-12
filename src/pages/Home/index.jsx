@@ -9,15 +9,19 @@ export default function Home() {
 	const history = useHistory();
 
 	const [city, setCity] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const { weather, setWeather } = useWeatherContext();
 
 	const handleGetWeatherData = async (params) => {
+		setIsLoading(true);
 		try {
 			const data = await getWeatherData(params);
 			setWeather(data);
 		} catch (error) {
 			toast.error('Cidade não encontrada.');
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -46,6 +50,12 @@ export default function Home() {
 	return (
 		<>
 			<Toaster position="bottom-center" reverseOrder={false} />
+			{isLoading && (
+				<div className="loading-screen">
+					<div className="spinner" />
+				</div>
+			)}
+
 			<div className="home-title">
 				<h1> How's the Weather? </h1>
 			</div>
